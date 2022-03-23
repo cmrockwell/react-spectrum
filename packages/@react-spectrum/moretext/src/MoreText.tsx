@@ -19,8 +19,6 @@ import {useProviderProps} from '@react-spectrum/provider';
 import {ActionButton} from '@react-spectrum/button';
 import {Tooltip} from '@react-spectrum/tooltip';
 import {TooltipTrigger} from '@react-spectrum/tooltip/dist/module';
-import styles from '@adobe/spectrum-css-temp/components/tooltip/vars.css';
-import './MoreText.css';
 
 export interface SpectrumMoreTextProps extends DOMProps, StyleProps {
   onChange?: any
@@ -47,9 +45,7 @@ function MoreText(props: SpectrumMoreTextProps, ref: DOMRef<HTMLDivElement>) {
   });
 
   const handleButtonClick = () => {
-    console.log('click');
-    setShowTip(!showTip)
-    // setTimeout(()={}, 1500);
+    setShowTip(!showTip);
   };
 
   return (
