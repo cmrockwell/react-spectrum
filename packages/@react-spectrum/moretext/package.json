@@ -34,6 +34,8 @@
   "dependencies": {
     "@babel/runtime": "^7.6.2",
     "@react-aria/utils": "^3.0.0",
+    "@react-spectrum/button": "^3.7.3",
+    "@react-spectrum/tooltip": "^3.1.8",
     "@react-spectrum/utils": "^3.0.0",
     "@react-types/shared": "^3.0.0",
     "@spectrum-icons/ui": "^3.2.5"

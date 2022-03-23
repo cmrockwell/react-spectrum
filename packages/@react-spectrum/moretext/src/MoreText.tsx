@@ -16,7 +16,11 @@ import {filterDOMProps} from '@react-aria/utils';
 import MoreIcon from '@spectrum-icons/ui/More';
 import React, {useEffect, useState} from 'react';
 import {useProviderProps} from '@react-spectrum/provider';
-
+import {ActionButton} from '@react-spectrum/button';
+import {Tooltip} from '@react-spectrum/tooltip';
+import {TooltipTrigger} from '@react-spectrum/tooltip/dist/module';
+import styles from '@adobe/spectrum-css-temp/components/tooltip/vars.css';
+import './MoreText.css';
 
 export interface SpectrumMoreTextProps extends DOMProps, StyleProps {
   onChange?: any
@@ -35,11 +39,18 @@ function MoreText(props: SpectrumMoreTextProps, ref: DOMRef<HTMLDivElement>) {
   } = props;
 
   const [wider, setWider] = useState(false);
+  const [showTip, setShowTip] = useState(false);
   useEffect(() => {
     // Update the document title using the browser API
     setWider(domRef.current.scrollWidth > domRef.current.offsetWidth );
     console.log(wider);
   });
+
+  const handleButtonClick = () => {
+    console.log('click');
+    setShowTip(!showTip)
+    // setTimeout(()={}, 1500);
+  };
 
   return (
     <>
@@ -47,15 +58,26 @@ function MoreText(props: SpectrumMoreTextProps, ref: DOMRef<HTMLDivElement>) {
         {...filterDOMProps(props)}
         {...styleProps}
         ref={domRef}
-        className={styleProps.className}
-        style={{whiteSpace: 'nowrap', overflow: 'hidden', paddingRight: '16px', position: 'relative'}}>
+        style={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          paddingRight: '16px',
+          position: 'relative',
+          visibility: showTip ? 'hidden' : 'visible'}
+      }>
         {children}
       </span>
       {wider &&
         <>
-          <button style={{position: 'absolute', right: '0px', width: '35px', height: '25px'}}>
-            <MoreIcon />
-          </button>
+          <TooltipTrigger onOpenChange={handleButtonClick} delay={500}>
+            <ActionButton
+              aria-label="See More">
+              <div style={{width: '18px', height: '20px'}}>
+                <MoreIcon />
+              </div>
+            </ActionButton>
+            <Tooltip placement="start">{children}</Tooltip>
+          </TooltipTrigger>
         </>
       }
     </>
